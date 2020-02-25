@@ -1,0 +1,18 @@
+{
+  "name": "volcon",
+  "version": "1.0.0",
+  "description": "controls volume on my receiver with a small usb belt drive",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo 'nothing here yet'",
+    "start": "node server.js"
+  },
+  "author": "Ethan Coeytaux",
+  "license": "ISC",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "express": "^4.17.1",
+    "shelljs": "^0.8.3",
+    "util": "^0.12.1"
+  }
+}

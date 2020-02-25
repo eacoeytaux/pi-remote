@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Remote</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css"/>
+	<link rel="apple-touch-icon" sizes="57x57" href="apple-iconhy.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="apple-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="apple-icon-114x114.png" />
+	<link rel="apple-touch-icon" sizes="144x144" href="apple-icon-144x144.png" />
+</head>
+<body>
+	<div>
+		<a href="#"><img src="power.png" id="power" class="power_btn"></a>
+		<a href="#"><img src="volume_up.png" id="volume_up" class="vol_up_btn"></a>
+		<a href="#"><img src="volume_down.png" id="volume_down" class="vol_down_btn"></a>
+		<a href="#"><img src="input.png" id="input" class="input_btn"></a>
+	</div>
+</body>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script>
+	window.onload = function() {
+		$('#power').bind('touchstart', function() {
+			makePost('/power');
+			$('#power').attr('src', 'power_filled.png');
+		});
+		$('#power').bind('touchend', function() {
+			$('#power').attr('src', 'power.png');
+		});
+		$('#power').bind('mousedown', function() {
+			makePost('/power');
+			$('#power').attr('src', 'power_filled.png');
+		});
+		$('#power').bind('mouseup', function() {
+			$('#power').attr('src', 'power.png');
+		});
+		$('#volume_up').bind('touchstart', function() {
+			makePost('/vol_up');
+			$('#volume_up').attr('src', 'volume_up_filled.png');
+		});
+		$('#volume_up').bind('touchend', function() {
+			$('#volume_up').attr('src', 'volume_up.png');
+		});
+		$('#volume_up').bind('mousedown', function() {
+			makePost('/vol_up');
+			$('#volume_up').attr('src', 'volume_up_filled.png');
+		});
+		$('#volume_up').bind('mouseup', function() {
+			$('#volume_up').attr('src', 'volume_up.png');
+		});
+		$('#volume_down').bind('touchstart', function() {
+			makePost('/vol_down');
+			$('#volume_down').attr('src', 'volume_down_filled.png');
+		});
+		$('#volume_down').bind('touchend', function() {
+			$('#volume_down').attr('src', 'volume_down.png');
+		});
+		$('#volume_down').bind('mousedown', function() {
+			makePost('/vol_down');
+			$('#volume_down').attr('src', 'volume_down_filled.png');
+		});
+		$('#volume_down').bind('mouseup', function() {
+			$('#volume_down').attr('src', 'volume_down.png');
+		});
+		$('#input').bind('touchstart', function() {
+			makePost('/source');
+			$('#input').attr('src', 'input_filled.png');
+		});
+		$('#input').bind('touchend', function() {
+			$('#input').attr('src', 'input.png');
+		});
+		$('#input').bind('mousedown', function() {
+			makePost('/source');
+			$('#input').attr('src', 'input_filled.png');
+		});
+		$('#input').bind('mouseup', function() {
+			$('#input').attr('src', 'input.png');
+		});
+	}
+
+	function makePost(url) {
+		var req = new XMLHttpRequest();
+		req.open('POST', url);
+		req.send({});
+	}
+</script>
