@@ -73,41 +73,35 @@ app.get('/apple-icon-144x144.png', function (req, res) {
 // -- PYTHON DRIVER --
 
 function move(direction) {
-	// util.log(direction);
-	const script = exec('bash ./scripts/driver/step.sh ' + direction);
+	util.log(direction);
+	const script = exec('bash ./driver/step.sh ' + direction);
 
 	script.stdout.on('data', function(data) {
-		util.log('stepp.sh.stdout: ' + data);
+		util.log('stepper stdout: ' + data);
 	});
 
 	script.stderr.on('data', function(data) {
-		util.log('step.sh.stderr: ' + data);
+		util.log('stepper stderr: ' + data);
 	});
 }
 
 function ir_remote(command) {
-	// util.log(command);
-	const script = exec('bash ./scripts/ir-remote/' + command + '.sh');
+	util.log(command);
+	btn = '';
+	if (command == 'power') {
+		btn = '0';
+	} else if (command == 'source') {
+		btn = '1';
+	}
+
+	const script = exec('irsend SEND_ONCE pi-remote BTN_' + btn);
 
 	script.stdout.on('data', function(data) {
-		util.log(command + '.sh.stdout: ' + data);
+		util.log('infrared stdout: ' + data);
 	});
 
 	script.stderr.on('data', function(data) {
-		util.log(command + '.sh.stderr: ' + data);
-	});
-}
-
-function bluetooth() {
-	// util.log('bluetooth');
-	const script = exec('bash ./scripts/bluetooth.sh');
-
-	script.stdout.on('data', function(data) {
-		util.log('bluetooth.sh.stdout: ' + data);
-	});
-
-	script.stderr.on('data', function(data) {
-		util.log('bluetooth.sh.stderr: ' + data);
+		util.log('infrared stderr: ' + data);
 	});
 }
 
@@ -131,7 +125,3 @@ app.post('/source', function(req, res) {
 	sendFile(res, 'public/index.html');
 });
 
-app.post('/bluetooth', function(req, res) {
-	bluetooth();
-	sendFile(res, 'public/index.html');
-});

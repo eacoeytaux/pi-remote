@@ -1,5 +1,5 @@
 {
-  "name": "pi-remote",
+  "name": "volcon",
   "version": "1.0.0",
   "description": "controls volume on my receiver with a small usb belt drive",
   "main": "server.js",
@@ -15,9 +15,5 @@
     "npm": "^6.14.0",
     "shelljs": "^0.8.3",
     "util": "^0.12.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/eacoeytaux/pi-remote.git"
   }
 }
