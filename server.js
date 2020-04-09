@@ -88,13 +88,16 @@ function move(direction) {
 function ir_remote(command) {
 	util.log(command);
 	btn = '';
+	remote = '';
 	if (command == 'power') {
 		btn = '0';
+		remote = 'pi-remote-tv';
 	} else if (command == 'source') {
-		btn = '1';
+		btn = 'C';
+		remote = 'pi-remote-tv';
 	}
 
-	const script = exec('irsend SEND_ONCE pi-remote BTN_' + btn);
+	const script = exec('irsend SEND_ONCE ' + remote + ' BTN_' + btn);
 
 	script.stdout.on('data', function(data) {
 		util.log('infrared stdout: ' + data);
