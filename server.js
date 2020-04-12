@@ -93,8 +93,8 @@ function ir_remote(command) {
 		btn = '0';
 		remote = 'pi-remote-tv';
 	} else if (command == 'source') {
-		btn = 'C';
-		remote = 'pi-remote-tv';
+		btn = 'A';
+		remote = 'pi-remote-hdmi-switch';
 	}
 
 	const script = exec('irsend SEND_ONCE ' + remote + ' BTN_' + btn);
