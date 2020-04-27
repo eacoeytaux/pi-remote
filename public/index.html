@@ -14,7 +14,8 @@
 		<a href="#"><img src="power.png" id="power" class="power_btn"></a>
 		<a href="#"><img src="volume_up.png" id="volume_up" class="vol_up_btn"></a>
 		<a href="#"><img src="volume_down.png" id="volume_down" class="vol_down_btn"></a>
-		<a href="#"><img src="input.png" id="input" class="input_btn"></a>
+                <a href="#"><img src="hdmi_input.png" id="hdmi_input" class="hdmi_input_btn"></a>
+		<a href="#"><img src="tv_input.png" id="tv_input" class="tv_input_btn"></a>
 	</div>
 </body>
 
@@ -64,19 +65,33 @@
 		$('#volume_down').bind('mouseup', function() {
 			$('#volume_down').attr('src', 'volume_down.png');
 		});
-		$('#input').bind('touchstart', function() {
-			makePost('/source');
-			$('#input').attr('src', 'input_filled.png');
+                $('#hdmi_input').bind('touchstart', function() {
+                        makePost('/hdmi-source');
+                        $('#hdmi_input').attr('src', 'hdmi_input_filled.png');
+                });
+                $('#hdmi_input').bind('touchend', function() {
+                        $('#hdmi_input').attr('src', 'hdmi_input.png');
+                });
+                $('#hdmi_input').bind('mousedown', function() {
+                        makePost('/hdmi-source');
+                        $('#hdmi_input').attr('src', 'hdmi_input_filled.png');
+                });
+                $('#hdmi_input').bind('mouseup', function() {
+                        $('#hdmi_input').attr('src', 'hdmi_input.png');
+                });
+		$('#tv_input').bind('touchstart', function() {
+			makePost('/tv-source');
+			$('#tv_input').attr('src', 'tv_input_filled.png');
 		});
-		$('#input').bind('touchend', function() {
-			$('#input').attr('src', 'input.png');
+		$('#tv_input').bind('touchend', function() {
+			$('#tv_input').attr('src', 'tv_input.png');
 		});
-		$('#input').bind('mousedown', function() {
-			makePost('/source');
-			$('#input').attr('src', 'input_filled.png');
+		$('#tv_input').bind('mousedown', function() {
+			makePost('/tv-source');
+			$('#tv_input').attr('src', 'tv_input_filled.png');
 		});
-		$('#input').bind('mouseup', function() {
-			$('#input').attr('src', 'input.png');
+		$('#tv_input').bind('mouseup', function() {
+			$('#tv_input').attr('src', 'tv_input.png');
 		});
 	}
 
