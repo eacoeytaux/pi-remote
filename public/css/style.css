@@ -1,6 +1,6 @@
 .power_btn {
 	margin:auto;
-	width:24%;
+	width:45%;
 	padding-top:10%;
 	display:block;
 }
@@ -21,11 +21,11 @@
 .hdmi_input_btn {
         margin:auto;
         width:24%;
-	padding-bottom:3%;
         display:block;
 }
 .tv_input_btn {
 	margin:auto;
-	width:14%;
+	width:15%;
+	padding-top:4%;
 	display:block;
 }
