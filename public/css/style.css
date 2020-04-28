@@ -23,15 +23,15 @@
         margin:auto;
         width:18%;
  	padding-top:36%;
-	padding-right:10%;
-        padding-left:0%;
+	padding-right:9%;
+        padding-left:1%;
         float:right;
 }
 .tv_input_btn {
 	margin:auto;
         width:18%;
         padding-top:36%;
-	padding-right:0%;
-        padding-left:10%;
+	padding-right:1%;
+        padding-left:9%;
         float:left;
 }
