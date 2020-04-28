@@ -78,52 +78,81 @@ app.get('/apple-icon-144x144.png', function (req, res) {
 
 // -- PYTHON DRIVER --
 
-function move(direction) {
-	util.log(direction);
-	const script = exec('bash ./driver/step.sh ' + direction);
+var doubletap = false;
 
-	script.stdout.on('data', function(data) {
-		util.log('stepper stdout: ' + data);
-	});
-
-	script.stderr.on('data', function(data) {
-		util.log('stepper stderr: ' + data);
-	});
+var volume_running = false;
+var volume_queue = [];
+var volume_queue_size = 0;
+function volume(direction) {
+	if (doubletap == false) {
+        	doubletap = true;
+        	setTimeout(function() { doubletap = false; }, 500);
+		
+		if (volume_running == false) {
+			volume_running = true;
+	
+			util.log('volume: ' + direction);
+			const script = exec('bash ./driver/step.sh ' + direction, function() {
+				volume_running = false;
+				if (volume_queue_size > 0) {
+					var next_direction = volume_queue.shift();
+					volume_queue_size -= 1;
+					volume(next_direction);
+				}
+			});
+		
+			script.stdout.on('data', function(data) {
+				util.log('stepper stdout: ' + data);
+			});
+		
+			script.stderr.on('data', function(data) {
+				util.log('stepper stderr: ' + data);
+			});
+		} else {
+			volume_queue.push(direction);
+			volume_queue_size += 1;
+		}
+	}
 }
 
 function ir_remote(command) {
-	util.log(command);
-	key = '';
-	remote = '';
-	if (command == 'power') {
-		key = 'POWER';
-		remote = 'pi-remote-tv';
-	} else if (command == 'tv-source') {
-                key = 'S';
-                remote = 'pi-remote-tv';
-        } else if (command == 'hdmi-source') {
-		key = 'DOWN';
-		remote = 'pi-remote-hdmi';
-	}
-
-	const script = exec('irsend SEND_ONCE ' + remote + ' KEY_' + key);
-
-	script.stdout.on('data', function(data) {
-		util.log('infrared stdout: ' + data);
-	});
-
-	script.stderr.on('data', function(data) {
-		util.log('infrared stderr: ' + data);
-	});
+        if (doubletap == false) {
+        	doubletap = true;
+        	setTimeout(function() { doubletap = false; }, 500);	
+		
+		util.log('command: ' + command);
+		key = '';
+		remote = '';
+		if (command == 'power') {
+			key = 'POWER';
+			remote = 'pi-remote-tv';
+		} else if (command == 'tv-source') {
+	                key = 'S';
+	                remote = 'pi-remote-tv';
+	        } else if (command == 'hdmi-source') {
+			key = 'DOWN';
+			remote = 'pi-remote-hdmi';
+		}
+	
+		const script = exec('irsend SEND_ONCE ' + remote + ' KEY_' + key);
+	
+		script.stdout.on('data', function(data) {
+			util.log('infrared stdout: ' + data);
+		});
+	
+		script.stderr.on('data', function(data) {
+			util.log('infrared stderr: ' + data);
+		});
+        } 
 }
 
 app.post('/vol_up', function(req, res) {
-	move('up');
+	volume('up');
 	sendFile(res, 'public/index.html');
 });
 
 app.post('/vol_down', function(req, res) {
-	move('down');
+	volume('down');
 	sendFile(res, 'public/index.html');
 });
 
